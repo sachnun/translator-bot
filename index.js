@@ -44,10 +44,11 @@ const RESPONSE_TEMPLATE = (
 <i>${escapeHTML(originalText)}</i></blockquote>
 
 <code>${escapeHTML(translatedText)}</code>
-<a href="tg://user?id=${senderId}">‎ </a>
+<a href="tg://user?id=${senderId}">‎</a>
 `;
 
 bot.on("message", async (ctx) => {
+  if (ctx.message.reply_to_message) return;
   if (ctx.message.text) {
     try {
       const result = await translate(ctx.message.text, {
