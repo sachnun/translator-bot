@@ -95,10 +95,6 @@ bot.on("message", async (ctx) => {
         reply_to_message_id: ctx.message.message_id,
       });
     }
-  } else {
-    await ctx.reply("I can only translate text messages", {
-      reply_to_message_id: ctx.message.message_id,
-    });
   }
 });
 
