@@ -52,7 +52,6 @@ bot.on("message", async (ctx) => {
   if (ctx.message.text) {
     try {
       const result = await translate(ctx.message.text, {
-        autoCorrect: true,
         from: "auto",
       });
 
@@ -62,6 +61,7 @@ bot.on("message", async (ctx) => {
       const translated = await translate(ctx.message.text, {
         to: targetLang,
         from: result.from.language.iso,
+        autoCorrect: true,
       });
 
       const detectedLang = result.from.language.iso;
