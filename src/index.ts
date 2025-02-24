@@ -11,7 +11,8 @@ declare module "bun" {
     }
 }
 
-const bot = new Telegraf(Bun.env.BOT_TOKEN).catch(console.error);
+if (!Bun.env.BOT_TOKEN) throw new Error("BOT_TOKEN is required")
+const bot = new Telegraf(Bun.env.BOT_TOKEN)
 
 const refine = {
     en: "gb",
