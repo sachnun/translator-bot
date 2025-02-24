@@ -1,11 +1,11 @@
 {
   "name": "translator-bot",
-  "module": "main/index.ts",
+  "module": "src/index.ts",
   "type": "module",
   "private": true,
   "scripts": {
     "dev": "bun --watch .",
-    "build": "bun build --target bun main/index.ts --outdir dist",
+    "build": "bun build --target bun src/index.ts --outdir dist",
     "start": "bun run ./dist/index.js"
   },
   "devDependencies": {
