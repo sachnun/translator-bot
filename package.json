@@ -1,23 +1,24 @@
 {
-  "name": "translate-bot",
-  "version": "1.0.0",
-  "main": "index.js",
+  "name": "translator-bot",
+  "module": "main/index.ts",
   "type": "module",
+  "private": true,
   "scripts": {
-    "dev": "pm2-dev start index.ts"
+    "dev": "bun --watch .",
+    "build": "bun build --target bun main/index.ts --outdir dist",
+    "start": "bun run ./dist/index.js"
   },
-  "author": "",
-  "license": "ISC",
-  "description": "",
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
   "dependencies": {
-    "bun": "^1.2.0",
+    "@types/html-escaper": "^3.0.4",
     "country-emoji": "^1.5.6",
     "google-translate-api-x": "^10.7.2",
     "html-escaper": "^3.0.3",
-    "pm2": "^5.4.3",
     "telegraf": "^4.16.3"
-  },
-  "devDependencies": {
-    "@types/node": "^22.10.10"
   }
 }

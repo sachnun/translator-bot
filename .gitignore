@@ -27,3 +27,7 @@ yarn-error.log*
 
 # Optional: lock file
 # package-lock.json
+
+# Build output
+dist/
+

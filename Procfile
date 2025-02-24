@@ -1,1 +1,0 @@
-worker: npx pm2-runtime start index.ts --name telegram-bot

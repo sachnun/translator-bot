@@ -1,0 +1,31 @@
+name: Lade Deploy
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions: 
+      contents: read
+      actions: write
+    steps:
+      - uses: actions/checkout@v3
+      - name: Download Lade CLI
+        run: |
+          curl -L $LADE_DOWNLOAD_URL | tar xz
+          chmod +x lade
+          ./lade version
+        env:
+          LADE_DOWNLOAD_URL: https://github.com/sachnun/lade/releases/download/v0.1.8-1/lade-linux-amd64.tar.gz
+      - name: Login to Lade
+        run: |
+          ./lade login --username "$LADE_USERNAME" --password "$LADE_PASSWORD"
+        env:
+          LADE_USERNAME: ${{ vars.LADE_USERNAME }}
+          LADE_PASSWORD: ${{ secrets.LADE_PASSWORD }}
+      - name: Deploy
+        run: ./lade deploy --app "$LADE_APP_NAME"
+        env:
+          LADE_APP_NAME: ${{ vars.LADE_APP_NAME }}
