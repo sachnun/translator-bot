@@ -33,7 +33,8 @@ COPY --from=prerelease /usr/src/app/dist dist
 COPY --from=prerelease /usr/src/app/package.json .
 
 # Permissions
-RUN chmod -R bun: 755 /usr/src/app
+RUN chown -R bun:bun /usr/src/app && \
+    chmod -R 755 /usr/src/app
 
 USER bun
 ENTRYPOINT [ "bun", "run", "start" ]
