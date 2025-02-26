@@ -32,8 +32,8 @@ COPY --from=install /temp/prod/node_modules node_modules
 COPY --from=prerelease /usr/src/app/dist dist
 COPY --from=prerelease /usr/src/app/package.json .
 
-# Add permissions for dist directory
-RUN chown -R bun: /usr/src/app/dist
+# Permissions
+RUN chmod -R bun: 755 /usr/src/app
 
 USER bun
 ENTRYPOINT [ "bun", "run", "start" ]
