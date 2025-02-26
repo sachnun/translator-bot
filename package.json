@@ -1,24 +1,25 @@
 {
   "name": "translator-bot",
-  "module": "src/index.ts",
+  "module": "src/mtproto.ts",
   "type": "module",
   "private": true,
   "scripts": {
     "dev": "bun --watch .",
-    "build": "bun build --target bun src/index.ts --outdir dist",
-    "start": "bun run ./dist/index.js"
+    "build": "bun build --target bun src/mtproto.ts --outdir dist",
+    "start": "bun run ./dist/mtproto.js"
   },
   "devDependencies": {
     "@types/bun": "latest"
   },
   "peerDependencies": {
-    "typescript": "^5"
+    "typescript": "^5.7.3"
   },
   "dependencies": {
     "@types/html-escaper": "^3.0.4",
     "country-emoji": "^1.5.6",
     "google-translate-api-x": "^10.7.2",
     "html-escaper": "^3.0.3",
-    "telegraf": "^4.16.3"
+    "telegraf": "^4.16.3",
+    "tgsnake": "^3.3.3-hotfix.1"
   }
 }

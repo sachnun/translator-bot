@@ -31,3 +31,7 @@ yarn-error.log*
 # Build output
 dist/
 
+# MTProto session
+*.cache
+*.session
+
