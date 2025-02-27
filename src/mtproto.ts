@@ -5,12 +5,12 @@ const client = new Snake({
     apiId: Bun.env.API_ID,
     logLevel: 'error',
     login: {
-        session: Bun.env.SESSION,
+        session: '',
         forceDotSession: false,
     }
 });
 
-await client.run() // login
+await client.run() // connect first
 
 export async function translate(text: string, target: string) {
     return await client.api.invoke(new Raw.messages.TranslateText({
