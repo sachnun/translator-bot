@@ -5,13 +5,17 @@ import { escape } from "html-escaper";
 import { translate, languages } from "google-translate-api-x";
 import { flag } from "country-emoji";
 
+import { translate as tgtranslate } from "./mtproto";
+
 declare module "bun" {
     interface Env {
+        API_HASH: string;
+        API_ID: number;
         BOT_TOKEN: string;
+        SESSION: string;
     }
 }
 
-if (!Bun.env.BOT_TOKEN) throw new Error("BOT_TOKEN is required")
 const bot = new Telegraf(Bun.env.BOT_TOKEN)
 
 const refine = {
@@ -40,7 +44,6 @@ const response = (data: responseSchema) => `
 `.trim();
 
 bot.start(async (ctx) => {
-    // only private chats
     if (ctx.chat.type !== 'private') return
 
     await ctx.sendChatAction('choose_sticker')
@@ -62,11 +65,10 @@ bot.on(message('text'), async (ctx) => {
     try {
         const { source, target } = await detect(ctx.message.text);
 
-        const translated = await translate(ctx.message.text, {
-            to: target,
-            from: source,
-            autoCorrect: true,
-        }).then(res => res.text);
+        const translated = await tgtranslate(ctx.message.text, target)
+            .catch(async () => {
+                return (await translate(ctx.message.text, { to: target })).text;
+            });
 
         await ctx.reply(response({
             sourceFlag: flag(refine[source as keyof typeof refine] || source) || '🇺🇳',

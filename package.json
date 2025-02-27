@@ -1,12 +1,12 @@
 {
   "name": "translator-bot",
-  "module": "src/mtproto.ts",
+  "module": "src/index.ts",
   "type": "module",
   "private": true,
   "scripts": {
     "dev": "bun --watch .",
-    "build": "bun build --target bun src/mtproto.ts --outdir dist",
-    "start": "bun run ./dist/mtproto.js"
+    "build": "bun build --target bun src/index.ts --outdir dist",
+    "start": "bun run ./dist/index.js"
   },
   "devDependencies": {
     "@types/bun": "latest"
