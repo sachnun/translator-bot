@@ -5,7 +5,7 @@ const client = new Snake({
     apiId: Bun.env.API_ID,
     logLevel: 'error',
     login: {
-        session: '',
+        session: Bun.env.SESSION,
         forceDotSession: false,
     }
 });
