@@ -70,19 +70,40 @@ bot.on(message('text'), async (ctx) => {
                 return (await translate(ctx.message.text, { to: target })).text;
             });
 
-        await ctx.reply(response({
-            sourceFlag: flag(refine[source as keyof typeof refine] || source) || '🇺🇳',
-            targetFlag: flag(refine[target as keyof typeof refine] || target) || '🇺🇳',
-            sourceCountry: languages[source as keyof typeof languages] || source,
-            targetCountry: languages[target as keyof typeof languages] || target,
-            original: ctx.message.text,
-            translated: translated,
+
+        const scFlag = flag(refine[source as keyof typeof refine] || source) || '🇺🇳';
+        const tcFlag = flag(refine[target as keyof typeof refine] || target) || '🇺🇳';
+
+        const scCountry = languages[source as keyof typeof languages] || source;
+        const tcCountry = languages[target as keyof typeof languages] || target;
+
+        // max 4096 characters if larger than that, split it
+        let reply = await ctx.reply(response({
+            sourceFlag: scFlag, targetFlag: tcFlag,
+            sourceCountry: scCountry, targetCountry: tcCountry,
+            original: ctx.message.text.slice(0, 1000) + '...',
+            translated: translated.slice(0, 2048),
             senderId: ctx.from.id,
         }), {
             parse_mode: "HTML",
             disable_notification: true,
             link_preview_options: { is_disabled: true },
         });
+
+        if (translated.length > 2048) {
+            const chunks = translated.match(/.{1,2048}/gs);
+            if (!chunks) throw new Error('Failed to split the text');
+            for (const chunk of chunks) {
+                // skip index 1
+                if (chunks.indexOf(chunk) === 0) continue;
+                reply = await ctx.reply(`<code>${escape(chunk)}</code>`, {
+                    parse_mode: "HTML",
+                    disable_notification: true,
+                    ...reply && { reply_to_message_id: reply.message_id },
+                    link_preview_options: { is_disabled: true },
+                });
+            }
+        }
 
     } catch (err) {
         console.error(err);

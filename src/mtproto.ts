@@ -10,7 +10,7 @@ const client = new Snake({
     }
 });
 
-await client.run() // connect first
+await client.run(); // connect first
 
 export async function translate(text: string, target: string) {
     return await client.api.invoke(new Raw.messages.TranslateText({
@@ -21,3 +21,7 @@ export async function translate(text: string, target: string) {
         })],
     })).then((res) => res.result[0].text)
 }
+
+client.exportSession().then((session) => {
+    console.debug(session)
+})
