@@ -107,9 +107,6 @@ bot.on(message('text'), async (ctx) => {
 
     } catch (err) {
         console.error(err);
-        await ctx.reply('😵‍💫', {
-            reply_parameters: { message_id: ctx.message.message_id },
-        });
     }
 });
 
