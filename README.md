@@ -60,4 +60,4 @@ docker run --env-file .env translator-bot
 
 ## License
 
-Private
+MIT License - see [LICENSE.md](LICENSE.md) for details
