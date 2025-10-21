@@ -52,7 +52,13 @@ bun start
 
 ## Docker
 
-Build and run with Docker:
+Pull from GitHub Container Registry:
+```bash
+docker pull ghcr.io/sachnun/translator-bot:main
+docker run --env-file .env ghcr.io/sachnun/translator-bot:main
+```
+
+Or build locally:
 ```bash
 docker build -t translator-bot .
 docker run --env-file .env translator-bot
